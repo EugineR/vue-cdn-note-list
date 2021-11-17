@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <link href="theme.css" rel="stylesheet">
+    <title>Vue note list</title>
+</head>
+<body>
+<div id="vue-app">
+    <div class="card">
+        <h1> {{ title }}</h1>
+        <div class="form-control">
+            <input
+                    :placeholder="placeholder"
+                    @keypress.enter="addNewNote"
+                    type="text"
+                    v-model="inputValue">
+        </div>
+
+        <button
+                @click="addNewNote"
+                class="btn"
+        >Add note
+        </button>
+
+        <hr/>
+
+        <ul class="list" v-if="notes.length">
+            <li class="list-item" v-for="(note, index) in notes">
+                <span :class="['primary', { 'bold': note.length > 7 }]">{{ `${index + 1} ${note}` }}</span>
+
+                <button
+                        @click="removeNote($event, index)"
+                        class="btn danger"
+                >Remove
+                </button>
+            </li>
+        </ul>
+
+        <h3 v-else>{{ zeroNotesMessage }}</h3>
+
+        <hr/>
+
+        <h3>Count: {{ notes.length }}</h3>
+        <h3>Double count: {{ getDoubledNotesLength }}</h3>
+    </div>
+</div>
+
+<script src="https://unpkg.com/vue@next"></script>
+<script src="app.js"></script>
+</body>
+</html>
